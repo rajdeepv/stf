@@ -45,7 +45,8 @@ module.exports = function EnhanceDeviceServiceFactory($filter, AppState) {
   }
 
   function enhanceDevice(device) {
-    device.enhancedName = [device.manufacturer,  device.marketName, device.model, "V"+device.version].join(' ') || 'Unknown'
+    var name = device.marketName === device.model ? device.marketName : `${device.marketName} ${device.model}`
+    device.enhancedName = [device.manufacturer,  name, "OS_v"+device.version].join(' ') || 'Unknown'
     device.enhancedModel = device.model || 'Unknown'
     device.enhancedImage120 = '/static/app/devices/icon/x120/' + (device.image || '_default.jpg')
     device.enhancedImage24 = '/static/app/devices/icon/x24/' + (device.image || '_default.jpg')
